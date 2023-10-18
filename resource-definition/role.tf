@@ -23,11 +23,12 @@ resource "humanitec_resource_definition" "role" {
       )
       "variables" = jsonencode(
         {
-          policy_arns = "$${resources.workload>aws-policy.outputs.arn}"
-          name        = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
-          app         = "$${context.app.id}"
-          env         = "$${context.env.id}"
-          res         = "$${context.res.id}"
+          policies     = "$${resources.workload>aws-policy.outputs.arn}"
+          name         = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
+          app          = "$${context.app.id}"
+          env          = "$${context.env.id}"
+          res          = "$${context.res.id}"
+          cluster_oidc = "3F0B8D9900F089E916742738AC27FCBA"
         }
       )
     }
