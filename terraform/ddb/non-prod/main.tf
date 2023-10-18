@@ -65,7 +65,7 @@ provider "aws" {
   access_key = var.access_key
   secret_key = var.secret_key
   dynamic "assume_role" {
-    for_each = (var.var.assume_role_arn == "") == true ? [] : [1]
+    for_each = (var.assume_role_arn == "") == true ? [] : [1]
     content {
       role_arn = var.assume_role_arn
     }
