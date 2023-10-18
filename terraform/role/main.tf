@@ -15,7 +15,7 @@ locals {
   sanitized_name   = replace(replace(lower(var.name), "/[^a-z\\-0-9]/", "-"), "/-*$/", "") #https://github.com/edgelaboratories/terraform-short-name/blob/main/main.tf
   name_is_too_long = length(local.sanitized_name) > 40
   truncated_name   = replace(substr(local.sanitized_name, 0, 40 - 1 - 0), "/-*$/", "")
-  name             = local.name_is_too_long ? format("%s-%s", local.truncated_name, random_string.suffix.result) : local.sanitized_name
+  name             = local.name_is_too_long ? local.truncated_name : local.sanitized_name
 }
 
 resource "aws_iam_role_policy_attachment" "policies" {
