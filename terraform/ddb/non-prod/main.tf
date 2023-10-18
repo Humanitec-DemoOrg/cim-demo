@@ -37,6 +37,14 @@ resource "aws_dynamodb_table" "this" {
     type = "N"
   }
 
+  global_secondary_index {
+    name               = "GameTitleIndex"
+    hash_key           = "GameTitle"
+    range_key          = "TopScore"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["UserId"]
+  }
+
   tags = {
     env = "${var.app}-${var.env}"
   }
