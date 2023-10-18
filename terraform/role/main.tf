@@ -11,12 +11,11 @@ output "arn" {
   value = aws_iam_role.role.arn
 }
 
-module "name" {
-  source        = "git@github.com:edgelaboratories/terraform-short-name.git?ref=v0.1.0"
-  name          = var.name
-  max_length    = 20
-  suffix_length = 0
-  upper         = false
+locals {
+  sanitized_name   = replace(replace(lower(var.name), "/[^a-z\\-0-9]/", "-"), "/-*$/", "") #https://github.com/edgelaboratories/terraform-short-name/blob/main/main.tf
+  name_is_too_long = length(local.sanitized_name) > 40
+  truncated_name   = replace(substr(sanitized_name, 0, 40 - 1 - 0), "/-*$/", "")
+  name             = local.name_is_too_long ? format("%s-%s", local.truncated_name, random_string.suffix.result) : local.sanitized_name
 }
 
 resource "aws_iam_role_policy_attachment" "policies" {
@@ -26,7 +25,7 @@ resource "aws_iam_role_policy_attachment" "policies" {
 }
 
 resource "aws_iam_role" "role" {
-  name_prefix = module.name.name
+  name_prefix = local.name
   // below uses StringLike to allow wildcards for multiple service accounts within the same namespace for workloads
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
