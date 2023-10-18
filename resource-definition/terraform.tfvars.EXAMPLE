@@ -1,0 +1,10 @@
+access_key      = ""
+secret_key      = ""
+assume_role_arn = ""
+region          = "us-east-1"
+
+
+humanitec_organization = ""
+humanitec_token        = ""
+
+app = ""
