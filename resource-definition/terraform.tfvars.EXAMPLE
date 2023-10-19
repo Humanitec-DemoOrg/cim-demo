@@ -8,3 +8,6 @@ humanitec_organization = ""
 humanitec_token        = ""
 
 app = ""
+
+cluster_non_prod_oidc = ""
+cluster_prod_oidc = ""

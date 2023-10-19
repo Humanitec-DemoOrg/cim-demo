@@ -1,0 +1,22 @@
+---
+apiVersion: score.dev/v1b1
+
+metadata:
+  name: consumer
+
+containers:
+  backend:
+    image: ubuntu:latest
+    command: ["/bin/bash"]
+    args: ["-c", 'while true; do printenv && echo "***"; sleep 120; done']
+    variables:
+      SQS: ${resources.mysqs.arn}
+      SNS: ${resources.mysns.arn}
+      DDB: ${resources.myddb.arn}
+resources:
+  "myddb":
+    type: dynamodb-table
+  "mysqs":
+    type: sqs
+  "mysns":
+    type: sns-topic

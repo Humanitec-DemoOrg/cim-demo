@@ -5,7 +5,7 @@ resource "humanitec_resource_definition" "sqs_prod" {
   type        = "sqs"
 
   provision = {
-    "aws-policy#${local.app}-sqs-policy" = {
+    "aws-policy#${local.app}-sqs-prod-policy" = {
       "is_dependent" : true,
       "match_dependents" : true
     }
@@ -30,7 +30,7 @@ resource "humanitec_resource_definition" "sqs_prod" {
       )
       "variables" = jsonencode(
         {
-          name = "$${context.app.id}-$${context.env.id}"
+          name = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
           app  = "$${context.app.id}"
           env  = "$${context.env.id}"
           res  = "$${context.res.id}"

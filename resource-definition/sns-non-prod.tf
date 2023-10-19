@@ -5,7 +5,7 @@ resource "humanitec_resource_definition" "sns_non_prod" {
   type        = "sns-topic"
 
   provision = {
-    "aws-policy#${local.app}-sns-policy" = {
+    "aws-policy#${local.app}-sns-non-prod-policy" = {
       "is_dependent" : true,
       "match_dependents" : true
     }
@@ -30,7 +30,7 @@ resource "humanitec_resource_definition" "sns_non_prod" {
       )
       "variables" = jsonencode(
         {
-          name = "$${context.app.id}-$${context.env.id}"
+          name = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
           app  = "$${context.app.id}"
           env  = "$${context.env.id}"
           res  = "$${context.res.id}"

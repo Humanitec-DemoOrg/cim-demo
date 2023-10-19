@@ -1,7 +1,8 @@
-resource "humanitec_resource_definition" "role" {
+variable "cluster_non_prod_oidc" {}
+resource "humanitec_resource_definition" "role_non_prod" {
   driver_type = "humanitec/terraform"
-  id          = "${local.app}-role"
-  name        = "${local.app}-role"
+  id          = "${local.app}-non-prod-role"
+  name        = "${local.app}-non-prod-role"
   type        = "aws-role"
 
   driver_inputs = {
@@ -28,7 +29,7 @@ resource "humanitec_resource_definition" "role" {
           app          = "$${context.app.id}"
           env          = "$${context.env.id}"
           res          = "$${context.res.id}"
-          cluster_oidc = "3F0B8D9900F089E916742738AC27FCBA"
+          cluster_oidc = var.cluster_non_prod_oidc
         }
       )
     }
@@ -40,7 +41,9 @@ resource "humanitec_resource_definition" "role" {
   }
 }
 
-resource "humanitec_resource_definition_criteria" "role" {
-  resource_definition_id = humanitec_resource_definition.role.id
+resource "humanitec_resource_definition_criteria" "role_non_prod" {
+  resource_definition_id = humanitec_resource_definition.role_non_prod.id
   app_id                 = humanitec_application.app.id
+  env_id                 = "development"
 }
+

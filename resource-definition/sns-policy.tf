@@ -1,15 +1,8 @@
-resource "humanitec_resource_definition" "sqs_non_prod" {
+resource "humanitec_resource_definition" "sns_policy" {
   driver_type = "humanitec/terraform"
-  id          = "${local.app}-sqs-non-prod"
-  name        = "${local.app}-sqs-non-prod"
-  type        = "sqs"
-
-  provision = {
-    "aws-policy#${local.app}-sqs-non-prod-policy" = {
-      "is_dependent" : true,
-      "match_dependents" : true
-    }
-  }
+  id          = "${local.app}-sns-policy"
+  name        = "${local.app}-sns-policy"
+  type        = "aws-policy"
 
   driver_inputs = {
     secrets = {
@@ -23,13 +16,14 @@ resource "humanitec_resource_definition" "sqs_non_prod" {
     values = {
       "source" = jsonencode(
         {
-          path = "terraform/sqs/non-prod"
+          path = "terraform/sns/policy"
           rev  = "refs/heads/main"
           url  = "https://github.com/nickhumanitec/examples.git"
         }
       )
       "variables" = jsonencode(
         {
+          arn  = "$${resources['aws-policy>sns-topic'].outputs.arn}"
           name = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
           app  = "$${context.app.id}"
           env  = "$${context.env.id}"
@@ -44,10 +38,17 @@ resource "humanitec_resource_definition" "sqs_non_prod" {
     ]
   }
 
+
 }
 
-resource "humanitec_resource_definition_criteria" "sqs_non_prod" {
-  resource_definition_id = humanitec_resource_definition.sqs_non_prod.id
+resource "humanitec_resource_definition_criteria" "sns_non_prod_policy" {
+  resource_definition_id = humanitec_resource_definition.sns_policy.id
   app_id                 = humanitec_application.app.id
-  env_id                 = "development"
+  res_id                 = "${local.app}-sns-non-prod-policy"
+}
+
+resource "humanitec_resource_definition_criteria" "sns_prod_policy" {
+  resource_definition_id = humanitec_resource_definition.sns_policy.id
+  app_id                 = humanitec_application.app.id
+  res_id                 = "${local.app}-sns-prod-policy"
 }
