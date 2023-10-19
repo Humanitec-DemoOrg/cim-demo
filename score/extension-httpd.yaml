@@ -1,0 +1,11 @@
+---
+apiVersion: humanitec.org/v1b1
+resources:
+  alb-shared-dns:
+    scope: shared
+spec:
+  replicas: 2
+  labels:
+    "labelkey": "value"
+  annotations:
+    "annotationkey": "value"

@@ -1,0 +1,25 @@
+---
+apiVersion: score.dev/v1b1
+
+metadata:
+  name: httpd
+
+containers:
+  backend:
+    image: httpd:latest
+
+service:
+  ports:
+    p80:
+      port: 80
+      targetPort: 80
+
+resources:
+  alb-shared-dns:
+    type: dns
+  route:
+    type: route
+    params:
+      host: ${resources.alb-shared-dns.host}
+      path: /
+      port: 80
