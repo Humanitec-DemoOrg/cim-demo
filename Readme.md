@@ -10,6 +10,6 @@
 1. `cd app/` and then `tofu init && tofu apply`
 
 ##  Score
-1. Verify each score file, if you changed the `dns_shared_resource_name` please make sure to adjust
+1. Verify each score file, if you changed the `dns_shared_resource_name` please make sure to adjust if needed
 1. Modify `deploy.sh` with your Humanitec token and app name
 1. Deploy using `bash deploy.sh httpd` (consumer, backend, nginx, podinfo, etc.) One deployment at a time. If you get conflict, it means the deployment is not finished get
