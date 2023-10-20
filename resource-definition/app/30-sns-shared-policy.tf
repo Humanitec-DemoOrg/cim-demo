@@ -17,7 +17,7 @@ resource "humanitec_resource_definition" "sns_policy" {
       "source" = {
         path = "terraform/sns/policy"
         rev  = "refs/heads/main"
-        url  = "https://github.com/nickhumanitec/examples.git"
+        url  = "https://github.com/Humanitec-DemoOrg/cim-demo.git"
       },
       "variables" = {
         arn  = "$${resources['aws-policy>sns-topic'].outputs.arn}"

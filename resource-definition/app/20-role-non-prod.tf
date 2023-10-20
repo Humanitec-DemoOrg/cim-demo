@@ -18,7 +18,7 @@ resource "humanitec_resource_definition" "role_non_prod" {
       "source" = {
         path = "terraform/role/"
         rev  = "refs/heads/main"
-        url  = "https://github.com/nickhumanitec/examples.git"
+        url  = "https://github.com/Humanitec-DemoOrg/cim-demo.git"
       },
       "variables" = {
         policies     = "$${resources.workload>aws-policy.outputs.arn}"

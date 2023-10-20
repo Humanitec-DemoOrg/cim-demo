@@ -2,10 +2,7 @@ variable "humanitec_organization" {}
 variable "humanitec_token" {}
 variable "humanitec_host" { default = "https://api.humanitec.io" }
 variable "app" {}
-variable "region" {}
-variable "access_key" {}
-variable "secret_key" {}
-variable "assume_role_arn" {}
+
 
 locals {
   app = var.app

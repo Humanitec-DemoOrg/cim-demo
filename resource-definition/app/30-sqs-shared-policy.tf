@@ -17,7 +17,7 @@ resource "humanitec_resource_definition" "sqs_policy" {
       "source" = {
         path = "terraform/sqs/policy"
         rev  = "refs/heads/main"
-        url  = "https://github.com/nickhumanitec/examples.git"
+        url  = "https://github.com/Humanitec-DemoOrg/cim-demo.git"
       },
       "variables" = {
         arn = "$${resources['aws-policy>sqs'].outputs.arn}"

@@ -24,7 +24,7 @@ resource "humanitec_resource_definition" "ddb_non_prod" {
       "source" = {
         path = "terraform/ddb/non-prod"
         rev  = "refs/heads/main"
-        url  = "https://github.com/nickhumanitec/examples.git"
+        url  = "https://github.com/Humanitec-DemoOrg/cim-demo.git"
       }
       "variables" = {
         name = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
