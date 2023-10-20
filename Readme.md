@@ -1,4 +1,4 @@
-#cim-demo
+# cim-demo
 
 ## DNS and ALB
 1. Install and configure as per https://github.com/Humanitec-DemoOrg/aws-examples/tree/main/alb-acm-route53-ingress
