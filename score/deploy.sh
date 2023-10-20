@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-
-
-export HUMANITEC_TOKEN="xxx"
-export HUMANITEC_ORG="xxx"
+export HUMANITEC_TOKEN=""
+export HUMANITEC_ORG=""
 export HUMANITEC_APP=myapp
-
 
 if [[ $1 == "httpd" ]]
 then

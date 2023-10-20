@@ -12,12 +12,13 @@ app = ""
 cluster_non_prod_oidc = ""
 cluster_prod_oidc = ""
 
-dns_shared_resource_name = "alb-shared-dns"
+dns_shared_resource_name = "myapp-shared-dns"
 dns_shared_domain        = "subdomain.domain.tld" # https://app-env.subdomain.domain.tld/{workload}
 
-dns_local_resource_name = "alb-local-dns"
-dns_local_domain        = "subdomain.domain.tld" #https://app-env-workload.subdomain.domain.tld
+# dns_local_resource_name = "myapp-local-dns"
+# dns_local_domain        = "subdomain.domain.tld" #https://app-env-workload.subdomain.domain.tld
 
-ingress_resource_name = "alb-ingress"
+ingress_resource_name = "myapp-shared-alb"
+# please make sure you have the same values within manifes/ingress.yaml
 ingress_cert_arn      = "arn:aws:acm:ca-central-1:111111111111:certificate/xxx"
 ingress_group_name    = "humanitec-public"

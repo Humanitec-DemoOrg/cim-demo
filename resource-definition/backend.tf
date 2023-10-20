@@ -5,8 +5,8 @@ resource "humanitec_resource_definition" "workload_backend_sa" {
   type        = "k8s-service-account"
 
   driver_inputs = {
-    values = {
-      templates = jsonencode({
+    values_string = jsonencode({
+      templates = {
         init      = <<EOL
 name: ${local.app}-backend-sa
 EOL
@@ -25,10 +25,10 @@ EOL
 name: {{ .init.name }}
 EOL
         cookie    = ""
-      })
-    }
-    secrets = {
-    }
+      }
+    })
+    secrets_string = jsonencode({
+    })
   }
   lifecycle {
     ignore_changes = [
@@ -51,8 +51,8 @@ resource "humanitec_resource_definition" "workload_backend" {
   type        = "workload"
 
   driver_inputs = {
-    values = {
-      templates = jsonencode({
+    values_string = jsonencode({
+      templates = {
         init      = ""
         manifests = ""
         outputs   = <<EOL
@@ -62,10 +62,10 @@ update:
       value: $${resources.k8s-service-account.outputs.name}
 EOL
         cookie    = ""
-      })
-    }
-    secrets = {
-    }
+      }
+    }),
+    secrets_string = jsonencode({
+    })
   }
 
   lifecycle {

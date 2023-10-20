@@ -9,21 +9,21 @@ resource "humanitec_resource_definition" "ingress" {
   driver_type = "humanitec/ingress"
 
   driver_inputs = {
-    values = {
-      "annotations" : jsonencode({
+    values_string = jsonencode({
+      "annotations" : {
         "alb.ingress.kubernetes.io/certificate-arn" : "${var.ingress_cert_arn}",
         "alb.ingress.kubernetes.io/group.name" : "${var.ingress_group_name}",
         "alb.ingress.kubernetes.io/listen-ports" : "[{\"HTTP\":80},{\"HTTPS\":443}]",
         "alb.ingress.kubernetes.io/scheme" : "internet-facing",
         "alb.ingress.kubernetes.io/ssl-redirect" : "443",
         "alb.ingress.kubernetes.io/target-type" : "ip"
-      }),
+      },
       #   "api_version" : "v1",
       "class" : "alb",
       "no_tls" : true
-    }
-    secrets = {
-    }
+    })
+    secrets_string = jsonencode({
+    })
   }
 
   lifecycle {
@@ -50,13 +50,20 @@ resource "humanitec_resource_definition" "dns" {
   type        = "dns"
   driver_type = "humanitec/dns-wildcard"
 
+  provision = {
+    "ingress" = {
+      "is_dependent" : false,
+      "match_dependents" : false
+    }
+  }
+
   driver_inputs = {
-    values = {
+    values_string = jsonencode({
       "domain" : var.dns_shared_domain,
       "template" : "$${context.app.id}-$${context.env.id}"
-    }
-    secrets = {
-    }
+    })
+    secrets_string = jsonencode({
+    })
   }
   lifecycle {
     ignore_changes = [

@@ -6,33 +6,29 @@ resource "humanitec_resource_definition" "role_prod" {
   type        = "aws-role"
 
   driver_inputs = {
-    secrets = {
-      variables = jsonencode({
+    secrets_string = jsonencode({
+      variables = {
         access_key      = var.access_key
         secret_key      = var.secret_key
         assume_role_arn = var.assume_role_arn
         region          = var.region
-      })
-    },
-    values = {
-      "source" = jsonencode(
-        {
-          path = "terraform/role/"
-          rev  = "refs/heads/main"
-          url  = "https://github.com/nickhumanitec/examples.git"
-        }
-      )
-      "variables" = jsonencode(
-        {
-          policies     = "$${resources.workload>aws-policy.outputs.arn}"
-          name         = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
-          app          = "$${context.app.id}"
-          env          = "$${context.env.id}"
-          res          = "$${context.res.id}"
-          cluster_oidc = var.cluster_prod_oidc
-        }
-      )
-    }
+      }
+    }),
+    values_string = jsonencode({
+      "source" = {
+        path = "terraform/role/"
+        rev  = "refs/heads/main"
+        url  = "https://github.com/nickhumanitec/examples.git"
+      },
+      "variables" = {
+        policies     = "$${resources.workload>aws-policy.outputs.arn}"
+        name         = "$${context.app.id}-$${context.env.id}-$${context.res.id}"
+        app          = "$${context.app.id}"
+        env          = "$${context.env.id}"
+        res          = "$${context.res.id}"
+        cluster_oidc = var.cluster_prod_oidc
+      }
+    })
   }
   lifecycle {
     ignore_changes = [
