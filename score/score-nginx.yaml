@@ -15,14 +15,14 @@ service:
       targetPort: 80
 
 resources:
-  myapp-shared-dns:
+  shared-dns:
     type: dns
     metadata:
       annotations:
-        score.humanitec.io/resId: shared.myapp-shared-dns
+        score.humanitec.io/resId: shared.shared-dns
   route:
     type: route
     params:
-      host: ${resources.myapp-shared-dns.host}
+      host: ${resources.shared-dns.host}
       path: /nginx
       port: 80

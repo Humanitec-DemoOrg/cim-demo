@@ -18,7 +18,6 @@ resource "humanitec_resource_definition" "ingress" {
         "alb.ingress.kubernetes.io/ssl-redirect" : "443",
         "alb.ingress.kubernetes.io/target-type" : "ip"
       },
-      #   "api_version" : "v1",
       "class" : "alb",
       "no_tls" : true
     })
@@ -36,10 +35,10 @@ resource "humanitec_resource_definition" "ingress" {
 
 resource "humanitec_resource_definition_criteria" "ingress" {
   resource_definition_id = humanitec_resource_definition.ingress.id
-  app_id                 = humanitec_application.app.id
+  app_id                 = local.app
 }
 
-//DNS
+//DNS https://app-env.subdomain.domain.tld/{workload or /}
 
 variable "dns_shared_resource_name" {}
 variable "dns_shared_domain" {}
@@ -76,6 +75,6 @@ resource "humanitec_resource_definition" "dns" {
 
 resource "humanitec_resource_definition_criteria" "dns" {
   resource_definition_id = humanitec_resource_definition.dns.id
-  app_id                 = humanitec_application.app.id
+  app_id                 = local.app
   res_id                 = "shared.${var.dns_shared_resource_name}"
 }
