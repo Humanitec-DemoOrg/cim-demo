@@ -35,8 +35,8 @@ metadata:
   namespace: alb-public
 spec:
   type: ClusterIP
-  # selector:
-  #   app: alb
+  selector:
+    app: alb
   ports:
     - name: default-http
       protocol: TCP
@@ -56,13 +56,13 @@ metadata:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ca-central-1:667740703053:certificate/01a9a098-2e5d-49cf-81d3-23d17cf8e96a
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ca-central-1:111111111111:certificate/xxx
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/group.name: humanitec-public
 spec:
   rules:
-    - host: nick.walhall.io
+    - host: subdomain.domain.tld
       http:
         paths:
           - pathType: Prefix
