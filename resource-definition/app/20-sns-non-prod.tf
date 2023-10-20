@@ -31,7 +31,6 @@ resource "humanitec_resource_definition" "sns_non_prod" {
         app       = "$${context.app.id}"
         env       = "$${context.env.id}"
         res       = "$${context.res.id}"
-        something = "$${resources.workload.outputs.x}"
       }
     })
   }
